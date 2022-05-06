@@ -1,21 +1,9 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
+import imageLoader from '../loader';
 
 export default function Home() {
-    const normalizeSrc = (src) => {
-        return src.startsWith('/') ? src.slice(1) : src;
-    };
-
-    const cloudflareLoader = ({ src, width, quality }) => {
-        const params = [`width=${width}`];
-        if (quality) {
-            params.push(`quality=${quality}`);
-        }
-        const paramsString = params.join(',');
-        return `/cdn-cgi/image/${paramsString}/${normalizeSrc(src)}`;
-    };
-
     return (
         <div className={styles.container}>
             <Head>
@@ -84,7 +72,7 @@ export default function Home() {
                     Powered by{' '}
                     <span className={styles.logo}>
                         <Image
-                            loader={cloudflareLoader}
+                            loader={imageLoader}
                             src="/vercel.svg"
                             alt="Vercel Logo"
                             width={72}
